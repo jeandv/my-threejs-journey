@@ -1,1 +1,3 @@
-console.log("TRHEE.js is running! :))))");
+import * as THREE from "three";
+
+console.log(THREE)
