@@ -29,3 +29,31 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.render(scene, camera)
+
+// Animations
+// let velocity = 0.1;
+
+let time = Date.now();
+
+const tick = () => {
+
+    // Time
+    const currentTime = Date.now();
+    const deltaTime = currentTime - time;
+    time = currentTime;
+
+    // Update objects - position, scale, rotation, etc
+    mesh.rotation.y += 0.01 * deltaTime;
+    //mesh.rotation.x += 0.01;
+
+    // mesh.position.z += velocity;
+
+    // if (mesh.position.z > 2 || mesh.position.z < -2)
+    //     velocity = -velocity;
+
+    //  Render
+    renderer.render(scene, camera);
+
+    window.requestAnimationFrame(tick);
+}
+tick();
