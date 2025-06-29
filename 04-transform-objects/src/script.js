@@ -57,6 +57,7 @@ scene.add(camera)
 
 console.log(mesh.position.distanceTo(camera.position)) // se obtiene la posicion que tiene desde la camara
 
+camera.lookAt(mesh.position); // para posicionar la camara donde tiene que mirar en el espacio.
 
 /**
  * Renderer
