@@ -16,14 +16,18 @@ scene.add(mesh)
 // mesh.position.x = 0.7
 // mesh.position.y = -0.6;
 // mesh.position.z = 1;
-
-mesh.position.set(0.7, -0.6, 1); // se pueden agregar todas posiciones a la vez (x, y, z)
+mesh.position.set(0.6, -0.3, 1); // se pueden agregar todas posiciones a la vez (x, y, z)
 
 // Scale
 mesh.scale.x = 2;
 mesh.scale.y = 0.3;
 mesh.scale.z = 0.4;
 mesh.scale.set(2, 0.3, 0.4);
+
+// Rotation
+mesh.rotation.reorder('YXZ'); // reordena los axes a nuestro gusto para rotar en el orden que se desee
+mesh.rotation.y = Math.PI * 0.25;
+mesh.rotation.x = Math.PI * 0.25;
 
 //mesh.position.normalize() // para agregar todas posiciones a 1
 
