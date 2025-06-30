@@ -33,23 +33,42 @@ renderer.render(scene, camera)
 // Animations
 // let velocity = 0.1;
 
-let time = Date.now();
+// Time
+// let time = Date.now();
+
+// Clock
+const clock = new THREE.Clock();
 
 const tick = () => {
 
     // Time
-    const currentTime = Date.now();
-    const deltaTime = currentTime - time;
-    time = currentTime;
+    //const currentTime = Date.now();
+    //const deltaTime = currentTime - time;
+    //time = currentTime;
+
+    // Clock
+    const elapsedTime = clock.getElapsedTime();
 
     // Update objects - position, scale, rotation, etc
-    mesh.rotation.y += 0.01 * deltaTime;
+    //mesh.rotation.y += 0.001 * deltaTime; // usando time
     //mesh.rotation.x += 0.01;
 
     // mesh.position.z += velocity;
 
     // if (mesh.position.z > 2 || mesh.position.z < -2)
     //     velocity = -velocity;
+
+    // usando clock
+    mesh.rotation.y = elapsedTime * Math.PI;
+    mesh.rotation.x = elapsedTime * Math.PI;
+
+    mesh.position.x = Math.cos(elapsedTime);
+    mesh.position.y = Math.sin(elapsedTime);
+
+
+    camera.position.x = Math.cos(elapsedTime);
+    camera.position.y = Math.sin(elapsedTime);
+    camera.lookAt(mesh.position);
 
     //  Render
     renderer.render(scene, camera);
