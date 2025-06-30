@@ -1,5 +1,6 @@
 import * as THREE from 'three'
-
+import gsap from 'gsap'
+console.log(gsap)
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -37,7 +38,16 @@ renderer.render(scene, camera)
 // let time = Date.now();
 
 // Clock
-const clock = new THREE.Clock();
+//const clock = new THREE.Clock();
+
+// Usando GSAP para animar
+
+const timeline = gsap.timeline({
+    repeat: -1, // Repeat indefinitely
+});
+
+timeline.to(mesh.position, { duration: 1, delay: 1, x: 2 });
+timeline.to(mesh.position, { duration: 1, delay: 1, x: 0 });
 
 const tick = () => {
 
@@ -47,7 +57,7 @@ const tick = () => {
     //time = currentTime;
 
     // Clock
-    const elapsedTime = clock.getElapsedTime();
+    //const elapsedTime = clock.getElapsedTime();
 
     // Update objects - position, scale, rotation, etc
     //mesh.rotation.y += 0.001 * deltaTime; // usando time
@@ -59,16 +69,16 @@ const tick = () => {
     //     velocity = -velocity;
 
     // usando clock
-    mesh.rotation.y = elapsedTime * Math.PI;
-    mesh.rotation.x = elapsedTime * Math.PI;
+    //mesh.rotation.y = elapsedTime * Math.PI;
+    //mesh.rotation.x = elapsedTime * Math.PI;
 
-    mesh.position.x = Math.cos(elapsedTime);
-    mesh.position.y = Math.sin(elapsedTime);
+    //mesh.position.x = Math.cos(elapsedTime);
+    //mesh.position.y = Math.sin(elapsedTime);
 
 
-    camera.position.x = Math.cos(elapsedTime);
-    camera.position.y = Math.sin(elapsedTime);
-    camera.lookAt(mesh.position);
+    //camera.position.x = Math.cos(elapsedTime);
+    //camera.position.y = Math.sin(elapsedTime);
+    //camera.lookAt(mesh.position);
 
     //  Render
     renderer.render(scene, camera);
