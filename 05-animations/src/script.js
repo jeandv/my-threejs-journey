@@ -48,6 +48,9 @@ const timeline = gsap.timeline({
 
 timeline.to(mesh.position, { duration: 1, delay: 1, x: 2 });
 timeline.to(mesh.position, { duration: 1, delay: 1, x: 0 });
+timeline.to(mesh.position, { duration: 1, delay: 1, x: -2 });
+timeline.to(mesh.position, { duration: 1, delay: 1, x: 0 });
+
 
 const tick = () => {
 
