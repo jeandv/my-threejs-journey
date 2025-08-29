@@ -15,7 +15,7 @@ const scene = new THREE.Scene()
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1, 1);
 const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load('/textures/dross.jpg');
+const texture = textureLoader.load('/images/dross.jpg');
 const material = new THREE.MeshBasicMaterial({ map: texture });
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
