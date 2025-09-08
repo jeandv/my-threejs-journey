@@ -65,7 +65,7 @@ cubeTweaks
     .max(20)
     .step(1)
     .onFinishChange(()=> {
-        mesh.geometry.dispose();
+        mesh.geometry.dispose(); // IMPORTANT - Esto es para limpiar, texturas, geometrias, figuras, cache creadas, para no acumular y tener la cpu correcta.
         mesh.geometry = new THREE.BoxGeometry(
             1, 1, 1,
             debugObject.subdivision, 
