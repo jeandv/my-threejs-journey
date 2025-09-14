@@ -69,6 +69,7 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
+console.log(geometry.attributes.uv)
 const material = new THREE.MeshBasicMaterial({ map: roughnessTexture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
