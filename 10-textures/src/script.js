@@ -41,7 +41,26 @@ const metalnessTexture = textureLoader.load('textures/door/metalness.jpg');
 const normalTexture = textureLoader.load('textures/door/normal.jpg');
 const ambientOcclusionTexture = textureLoader.load('textures/door/ambientOcclusion.jpg');
 const roughnessTexture = textureLoader.load('textures/door/roughness.jpg');
+const minecraftTexture = textureLoader.load('textures/minecraft.png')
 
+// Transfom textures
+// colorTexture.repeat.x = 2;
+// colorTexture.repeat.y = 3;
+// colorTexture.wrapS = THREE.MirroredRepeatWrapping
+// colorTexture.wrapS = THREE.MirroredRepeatWrapping
+
+// colorTexture.offset.x = 0.5;
+// colorTexture.offset.y = 0.5;
+
+// colorTexture.rotation = Math.PI / 4;
+// colorTexture.center.x = 0.5;
+// colorTexture.center.y = 0.5;
+
+// Filtering and mipmapping
+//colorTexture.minFilter = THREE.NearestFilter; // se ve commo mas nitido
+minecraftTexture.magFilter = THREE.NearestFilter; // quita lo borroso de una imagen pequeña 
+
+//Nota del uso de NearestFilter: Obtendra una mejor velocidad de fotogramas cuando se use NearestFilter, cuando no te importe el resultado, ejemplo cuando se requiera crear un objeta a distancia usa NearestFilter para mejor resultados y performance y una mejor velocidad de fotogramas (FrameRate)
 
 // const texture = textureLoader.load('textures/door/color.jpg', 
 //     () => {
@@ -70,7 +89,7 @@ const scene = new THREE.Scene()
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
 console.log(geometry.attributes.uv)
-const material = new THREE.MeshBasicMaterial({ map: roughnessTexture })
+const material = new THREE.MeshBasicMaterial({ map: minecraftTexture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
