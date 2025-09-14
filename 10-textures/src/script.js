@@ -2,6 +2,61 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 /**
+ * Textures
+ */
+
+const loadingManager = new THREE.LoadingManager()
+
+loadingManager.onStart = () => {
+    console.log('onStart');
+}
+
+loadingManager.onLoad = () => {
+    console.log('onLoad');
+}
+
+loadingManager.onProgress = () => {
+    console.log('onProgress');
+}
+
+loadingManager.onError = () => {
+    console.log('onError');
+}
+
+// const image = new Image();
+// const texture = new THREE.Texture(image);
+
+// image.onload = () => {
+//     texture.needsUpdate = true;
+// }
+
+// image.src = 'textures/door/color.jpg';
+
+// mejor forma de cargar texturas images:
+const textureLoader = new THREE.TextureLoader(loadingManager);
+const colorTexture = textureLoader.load('textures/door/color.jpg')
+const alphaTexture = textureLoader.load('textures/door/alpha.jpg');
+const heightTexture = textureLoader.load('textures/door/height.jpg');
+const metalnessTexture = textureLoader.load('textures/door/metalness.jpg');
+const normalTexture = textureLoader.load('textures/door/normal.jpg');
+const ambientOcclusionTexture = textureLoader.load('textures/door/ambientOcclusion.jpg');
+const roughnessTexture = textureLoader.load('textures/door/roughness.jpg');
+
+
+// const texture = textureLoader.load('textures/door/color.jpg', 
+//     () => {
+//         console.log('load');
+//     },
+//     () => {
+//         console.log('progress');
+//     },
+//     () => {
+//         console.log('error');
+//     },
+// );
+
+
+/**
  * Base
  */
 // Canvas
@@ -14,7 +69,7 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const material = new THREE.MeshBasicMaterial({ map: roughnessTexture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
