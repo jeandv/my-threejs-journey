@@ -24,7 +24,7 @@ const ambientOcclusionTexture = textureLoader.load('textures/door/ambientOcclusi
 const roughnessTexture = textureLoader.load('textures/door/roughness.jpg');
 const minecraftTexture = textureLoader.load('textures/minecraft.png')
 const matcapTexture = textureLoader.load('textures/matcaps/8.png')
-const gradientTexture = textureLoader.load('textures/gradients/3.png')
+const gradientTexture = textureLoader.load('textures/gradients/5.jpg')
 
 colorTexture.colorSpace = THREE.SRGBColorSpace;
 matcapTexture.colorSpace = THREE.SRGBColorSpace;
@@ -58,10 +58,16 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace;
 //const material = new THREE.MeshLambertMaterial(); // MeshLambertMaterial bueno para luces puntuales, buen rendimiento
 
 // MeshPhongMaterial
-const material = new THREE.MeshPhongMaterial(); // MeshPhongMaterial especialmente bueno para luces especulares, pero más caro en rendimiento
-material.shininess = 100;
-material.specular = new THREE.Color(0x1188ff);
+//const material = new THREE.MeshPhongMaterial(); // MeshPhongMaterial especialmente bueno para luces especulares, pero más caro en rendimiento
+//material.shininess = 100;
+//material.specular = new THREE.Color(0x1188ff);
 
+// MeshToonMaterial
+const material = new THREE.MeshToonMaterial();
+gradientTexture.minFilter = THREE.NearestFilter;
+gradientTexture.magFilter = THREE.NearestFilter;
+gradientTexture.generateMipmaps = false;
+material.gradientMap = gradientTexture;
 
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 16, 16),
