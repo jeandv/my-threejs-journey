@@ -23,7 +23,7 @@ const normalTexture = textureLoader.load('textures/door/normal.jpg');
 const ambientOcclusionTexture = textureLoader.load('textures/door/ambientOcclusion.jpg');
 const roughnessTexture = textureLoader.load('textures/door/roughness.jpg');
 const minecraftTexture = textureLoader.load('textures/minecraft.png')
-const matcapTexture = textureLoader.load('textures/matcaps/1.png')
+const matcapTexture = textureLoader.load('textures/matcaps/8.png')
 const gradientTexture = textureLoader.load('textures/gradients/3.png')
 
 colorTexture.colorSpace = THREE.SRGBColorSpace;
@@ -34,7 +34,22 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace;
  * Objects
  */
 // MeshBasicMaterials
-const material = new THREE.MeshBasicMaterial({ map: colorTexture});
+// const material = new THREE.MeshBasicMaterial();
+// material.map = colorTexture;
+// material.color = new THREE.Color(0xff0000);
+// material.wireframe = true;
+// material.transparent = true;
+// material.opacity = 0.5;
+//material.alphaMap = alphaTexture;
+// material.side = THREE.DoubleSide;
+
+// MeshNormalMaterial
+// const material = new THREE.MeshNormalMaterial();
+// material.flatShading = true;
+
+// MeshMatcapMaterial
+const material = new THREE.MeshMatcapMaterial();
+material.matcap = matcapTexture;
 
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 16, 16),
