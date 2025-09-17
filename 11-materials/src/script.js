@@ -55,7 +55,13 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace;
 // const material = new THREE.MeshDepthMaterial();
 
 // MeshLambertMaterial
-const material = new THREE.MeshLambertMaterial(); // MeshLambertMaterial especialmente bueno para luces puntuales, buen rendimiento
+//const material = new THREE.MeshLambertMaterial(); // MeshLambertMaterial bueno para luces puntuales, buen rendimiento
+
+// MeshPhongMaterial
+const material = new THREE.MeshPhongMaterial(); // MeshPhongMaterial especialmente bueno para luces especulares, pero más caro en rendimiento
+material.shininess = 100;
+material.specular = new THREE.Color(0x1188ff);
+
 
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 16, 16),
