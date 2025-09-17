@@ -1,5 +1,13 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import GUI from 'lil-gui'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
+
+/**
+ * Debug
+ */
+
+const gui = new GUI();
 
 /**
  * Base
@@ -63,26 +71,45 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace;
 //material.specular = new THREE.Color(0x1188ff);
 
 // MeshToonMaterial
-const material = new THREE.MeshToonMaterial();
-gradientTexture.minFilter = THREE.NearestFilter;
-gradientTexture.magFilter = THREE.NearestFilter;
-gradientTexture.generateMipmaps = false;
-material.gradientMap = gradientTexture;
+// const material = new THREE.MeshToonMaterial();
+// gradientTexture.minFilter = THREE.NearestFilter;
+// gradientTexture.magFilter = THREE.NearestFilter;
+// gradientTexture.generateMipmaps = false;
+// material.gradientMap = gradientTexture;
+
+// MeshStandardMaterial
+const material = new THREE.MeshStandardMaterial();
+material.metalness = 1
+material.roughness = 1
+material.map = colorTexture
+material.aoMap = ambientOcclusionTexture
+material.aoMapIntensity = 1
+material.displacementMap = heightTexture
+material.displacementScale = 0.1
+material.metalnessMap = metalnessTexture
+material.roughnessMap = roughnessTexture
+material.normalMap = normalTexture
+material.normalScale.set(0.5, 0.5)
+material.transparent = true;
+material.alphaMap = alphaTexture;
+
+gui.add(material, 'metalness').min(0).max(1).step(0.0001)
+gui.add(material, 'roughness').min(0).max(1).step(0.0001)
 
 const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 16, 16),
+    new THREE.SphereGeometry(0.5, 64, 64),
     material
 );
 
 sphere.position.x = -1.5;
 
 const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
+    new THREE.PlaneGeometry(1, 1, 100, 100),
     material
 );
 
 const torus = new THREE.Mesh(
-    new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+    new THREE.TorusGeometry(0.3, 0.2, 64, 128),
     material
 );
 
@@ -97,12 +124,25 @@ scene.add(sphere, plane, torus);
 // const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 // scene.add(ambientLight);
 
-const pointLight = new THREE.PointLight(0xffffff, 30);
-pointLight.position.x = 2;
-pointLight.position.y = 3;
-pointLight.position.z = 4;
+// const pointLight = new THREE.PointLight(0xffffff, 30);
+// pointLight.position.x = 2;
+// pointLight.position.y = 3;
+// pointLight.position.z = 4;
 
-scene.add(pointLight);
+// scene.add(pointLight);
+
+/**
+ * Environment map
+ */
+
+const rgbeLoader = new RGBELoader();
+rgbeLoader.load('./textures/environmentMap/2k.hdr', (environmentMap) =>
+{
+    environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+
+    scene.background = environmentMap;
+    scene.environment = environmentMap;
+})
 
 /**
  * Sizes
