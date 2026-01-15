@@ -56,14 +56,14 @@ world.addContactMaterial(defaultContactMaterial)
 world.defaultContactMaterial = defaultContactMaterial
 
 //Sphere
-const sphereShape = new CANNON.Sphere(0.5)
-const sphereBody = new CANNON.Body({
-    mass: 1,
-    shape: sphereShape,
-    position: new CANNON.Vec3(0, 3, 0)
-})
-sphereBody.applyLocalForce(new CANNON.Vec3(150, 0, 0), new CANNON.Vec3(0, 0, 0))
-world.addBody(sphereBody)
+// const sphereShape = new CANNON.Sphere(0.5)
+// const sphereBody = new CANNON.Body({
+//     mass: 1,
+//     shape: sphereShape,
+//     position: new CANNON.Vec3(0, 3, 0)
+// })
+// sphereBody.applyLocalForce(new CANNON.Vec3(150, 0, 0), new CANNON.Vec3(0, 0, 0))
+// world.addBody(sphereBody)
 
 // Floor
 const floorShape = new CANNON.Plane()
@@ -78,18 +78,18 @@ world.addBody(floorBody)
 /**
  * Test sphere
  */
-const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 32, 32),
-    new THREE.MeshStandardMaterial({
-        metalness: 0.3,
-        roughness: 0.4,
-        envMap: environmentMapTexture,
-        envMapIntensity: 0.5
-    })
-)
-sphere.castShadow = true
-sphere.position.y = 0.5
-scene.add(sphere)
+// const sphere = new THREE.Mesh(
+//     new THREE.SphereGeometry(0.5, 32, 32),
+//     new THREE.MeshStandardMaterial({
+//         metalness: 0.3,
+//         roughness: 0.4,
+//         envMap: environmentMapTexture,
+//         envMapIntensity: 0.5
+//     })
+// )
+// sphere.castShadow = true
+// sphere.position.y = 0.5
+// scene.add(sphere)
 
 /**
  * Floor
@@ -172,6 +172,43 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 /**
+ * Utils
+ */
+
+const objectsToUpdate = []
+
+const createSphere = (radius, position) => {
+    const mesh = new THREE.Mesh(
+        new THREE.SphereGeometry(radius, 20, 20),
+        new THREE.MeshStandardMaterial({
+            metalness: 0.3,
+            roughness: 0.4,
+            envMap: environmentMapTexture,
+        })
+    )
+    mesh.castShadow = true
+    mesh.position.copy(position)
+    scene.add(mesh)
+
+    // Cannon.js body
+    const shape = new CANNON.Sphere(radius)
+    const body = new CANNON.Body({
+        mass: 1,
+        shape,
+        position: new CANNON.Vec3(0, 3, 0),
+        material: defaultMaterial
+    })
+    body.position.copy(position)
+    world.addBody(body)
+
+    objectsToUpdate.push({ mesh, body })
+}
+
+createSphere(0.5, { x: 0, y: 3, z: 0 })
+createSphere(0.5, { x: 1, y: 3, z: 0 })
+createSphere(0.5, { x: -1, y: 3, z: 0 })
+
+/**
  * Animate
  */
 const clock = new THREE.Clock()
@@ -184,11 +221,11 @@ const tick = () =>
     previousTime = elapsedTime
 
     // Update physics world
-    sphereBody.applyForce(new CANNON.Vec3(-0.5, 0, 0), sphereBody.position)
+    //sphereBody.applyForce(new CANNON.Vec3(-0.5, 0, 0), sphereBody.position)
 
     world.step(1 / 60, deltaTime, 3)
 
-    sphere.position.copy(sphereBody.position)
+    //sphere.position.copy(sphereBody.position)
 
     // Update controls
     controls.update()
